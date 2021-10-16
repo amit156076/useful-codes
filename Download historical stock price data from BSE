@@ -1,0 +1,61 @@
+# this code lets you download historical data of share market stock prices of India. It is daily bhavcopy file from BSE. It is done through web automation. 
+
+#first import selenium and pandas
+
+from selenium import webdriver
+import pandas as pd
+
+#you need to download chrome driver to automate selenium . Once you have downloaded chrome driver use below command to initialize the browser
+
+driver = webdriver.Chrome("/home/amit/Downloads/chromedriver_linux64/chromedriver")
+
+#open bse URL
+
+url = "https://www.bseindia.com/markets/marketinfo/BhavCopy.aspx"
+driver.get(url)
+
+#create list of date range of the dates you want the data from 
+#here i am downloading data of whole year 2020
+dl = pd.date_range("2020-01-01", periods = 366, freq = "D")
+
+#For loop to download the data 
+
+for i in range(len(dl)):
+    day = 0
+    month = 0
+    year = 0
+    
+    day = dl[i].day
+    month = dl[i].month_name()[0:3]
+    year = dl[i].year
+    d1, d2, d3 = 0, 0, 0
+    if day < 10:
+        d1 = str(0)+str(day)
+        d2 = str(month)
+        d3 = str(year)
+    else:
+        d1 = str(day)
+        d2 = str(month)
+        d3 = str(year)
+    #print(d1, d2, d3)
+    #print(type(d1), type(d2), type(d3))
+    driver.find_element_by_id("ContentPlaceHolder1_fdate1").send_keys(d1)
+    driver.find_element_by_id("ContentPlaceHolder1_fmonth1").send_keys(d2)
+    driver.find_element_by_id("ContentPlaceHolder1_fyear1").send_keys(d3)
+    driver.find_element_by_id("ContentPlaceHolder1_btnSubmit").click()
+    try:
+        driver.find_element_by_xpath("//*[@id='ContentPlaceHolder1_btnHylSearBhav']").click()
+        print("downloaded")
+        
+    except:
+        print(d1, d2, d3, "holiday")
+    
+    
+    
+
+        
+#one exception of this code is that it skips files for the dates 11 and 22 for all months . These files you will need to download manually . As i could not found the solution for this problem yet. If you could help me in resolving me that would be great as well. 
+
+
+
+
