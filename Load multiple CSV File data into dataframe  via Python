@@ -1,0 +1,41 @@
+import os
+import datetime
+import pandas as pd
+
+#get current working directory
+os.getcwd()
+
+#set working directoty from where you want to copy file data
+
+os.chdir("Downloads/2020")
+
+#get the list of required files
+
+files = os.listdir()
+
+#remove any unwanted files via filter
+
+for entry in files:
+    if entry.startswith('EQ'):
+        print(entry)
+    else:
+        files.remove(entry)
+
+#loop through the list to get the data
+
+for i in range(len(files)):
+    if i == 0:
+        dt = files[i][2:8]
+        #print(dt)
+        date = datetime.datetime.strptime(dt, "%d%m%y")
+        df1 = pd.read_csv(files[i])
+        df1["date"] = date
+        df2 = df1
+    else:
+        dt = files[i][2:8]
+        #print(dt)
+        date = datetime.datetime.strptime(dt, "%d%m%y")
+        df1 = pd.read_csv(files[i])
+        df1["date"] = date
+        df2 = df2.append(df1)
+df2.shape
