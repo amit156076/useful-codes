@@ -1,0 +1,44 @@
+# set working directory to source folder
+
+setwd("/home/amit/Downloads/2020")
+
+#get files in the directory as list
+
+files <- list.files()
+
+#import libraries
+
+library(stringr)
+library(dplyr)
+library(ggplot2)
+
+#create dates vector by file name
+
+dates = as.Date(str_extract(files, "[0-9]+"), format = "%d%m%y")
+
+#loop through files to generate dataframe
+
+for (i in 1:length(files)) {	
+
+	if (i == 1) {
+	df1 = read.csv(files[i], strip.white = T)
+	df1["DATE"] = dates[i]
+	df2 = df1 }
+	
+	else {
+	df1 = read.csv(files[i], strip.white = T)
+	df1["DATE"] = dates[i]
+	df2 = rbind(df1, df2)}
+	}
+
+df2 %>%
+filter(SC_NAME == "WIPRO LTD.") %>%
+ggplot(aes(DATE, CLOSE))+
+geom_point()
+
+P <- df2 %>%
+filter(str_detect(SC_NAME, "^IPL$")) %>%
+ggplot(aes(DATE, CLOSE))+
+geom_line()
+
+P +  P + scale_x_date(date_breaks = "5 day", date_labels = "%d")
