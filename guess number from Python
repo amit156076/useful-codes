@@ -1,0 +1,17 @@
+import math
+#think of any number between 1 and 100000
+#if the number is returned say 'gotit'
+
+n1 = 0
+n2 = 100000
+
+for i in range(20):
+    n = math.floor((n1+n2)/2)
+    a = input("is number greater than " + str(n))
+    if a == 'yes':
+        n1 = n
+    if a == 'no':
+        n2 = n
+    if a == 'gotit':
+        print("Thanks for playing!!!")
+        break
