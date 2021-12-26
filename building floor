@@ -1,0 +1,36 @@
+#this program runs game to reach floor of buildings based on some rules of dice
+#rule is if dice outcome is 1, 2 then we step down by one step and if it is 3, 4, or 5 then we move upwards by one step and if 6 comes then move upwards by random number between 1 to 6
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+
+def buildings(n):
+	list = [0]
+	step = 0
+	coin = 0
+	for i in range(n):
+		coin = np.random.randint(1, 7)
+		if coin <= 2:
+			step = max(0, step - 1)
+			
+		elif coin in [3, 4, 5]:
+			step = step + 1
+		else: 
+			step = step + np.random.randint(1, 7)
+		list.append(step)
+			
+	return list	
+buildings(100)[-1]
+
+#doing this experiments many times we can plot the graph to see the distribution
+
+def plot(n):
+	bigger_list = np.array(0)
+	list = np.array(0)
+	for i in range(n):
+		list = buildings(100)
+		bigger_list = np.append(bigger_list, list[-1])
+	plt.hist(bigger_list)
+	plt.show()
+	
+plot(100)
