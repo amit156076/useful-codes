@@ -6,7 +6,7 @@ from selenium import webdriver
 import pandas as pd
 
 #you need to download chrome driver to automate selenium . Once you have downloaded chrome driver use below command to initialize the browser
-
+#path should be where you have kept chrome driver
 driver = webdriver.Chrome("/home/amit/Downloads/chromedriver_linux64/chromedriver")
 
 #open bse URL
