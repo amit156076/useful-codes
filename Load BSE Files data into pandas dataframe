@@ -1,3 +1,4 @@
+# this code is used to get the data downloaded from BSE into R dataframe
 import os
 import datetime
 import pandas as pd
