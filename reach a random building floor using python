@@ -1,7 +1,7 @@
 #this program runs game to reach floor of buildings based on some rules of dice
 #rule is if dice outcome is 1, 2 then we step down by one step and if it is 3, 4, or 5 then we move upwards by one step and if 6 comes then move upwards by random number between 1 to 6
 import matplotlib.pyplot as plt
-%matplotlib inline
+import numpy as np
 
 
 def buildings(n):
